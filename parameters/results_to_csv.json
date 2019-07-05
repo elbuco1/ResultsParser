@@ -1,0 +1,71 @@
+{
+    
+    "models_path":"./data/models/",
+    "outputs_path":"./data/outputs/",
+
+    "losses_dict":{
+        "ade":"ADE(conjointe)",
+        "ade_unjoint":"ADE",
+        "fde":"FDE(conjointe)",
+        "fde_unjoint":"FDE",
+        "social_0.1":"Sociale (0.1m)",
+        "social_0.5":"Sociale (0.5m)",
+        "social_1.0":"Sociale (1.0m)",
+        "dynamic_speed_disjoint": "Cinétique (vitesses)",
+        "dynamic_acceleration_disjoint":"Cinétique (accélérations)",
+        "spatial_unjoint": "Spatiale"
+    },
+    "models_dict":{
+        "cnn_final":"cnn-mlp-i-o",
+        "rnn_final":"rnn-mlp-i-o",        
+        "name3":"s2s-social-o-0",
+        "name4":"s2s-spatial-o",
+        "name5":"c-social-soft-o-0",
+        "name6":"c-social-mha-1-o-0",
+        "name6":"c-social-mha-4-o-0",
+        "spatial_soft":"c-spatial-soft-o",
+        "name7":"c-spatial-mha-1-o",
+        "name8":"c-spatial-mha-4-o",
+        "name9":"s2s-social-o-1",
+        "name10":"c-social-soft-o-1",
+        "name11":"c-social-mha-1-o-1",
+        "name12":"c-social-mha-4-o-1"
+    },
+    "file_name":"out.csv",
+    "models_list":[
+        "cnn_final",
+        "rnn_final"
+    ],
+    "scenes_list":[
+        "coupa0",
+        "coupa1", 
+        "gates2",             
+        "hyang0", 
+        "hyang1",  
+        "hyang3",  
+        "hyang8", 
+        "little0", 
+        "little1", 
+        "little2", 
+        "little3",
+        "nexus5",
+        "nexus6",
+        "quad0",
+        "quad1",
+        "quad2",
+        "quad3"
+    ],
+    "losses_list":[
+        "ade_unjoint",
+        "fde_unjoint"
+
+    ],
+    "metrics_to_percentage":[
+        "social_0.1",
+        "social_0.5",
+        "social_1.0",
+        "spatial_unjoint"
+
+    ],
+    "decimals":4
+}
