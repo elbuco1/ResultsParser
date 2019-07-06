@@ -9,7 +9,7 @@ class ResultsParser():
     def __init__(self,parameters_path):
         self.parameters = json.load(open(parameters_path))
         self.models_path = self.parameters["models_path"]+"{}/losses.json"
-        self.outputs_path = self.parameters["outputs_path"]+"{}.csv"
+        self.outputs_path = self.parameters["outputs_path"]+"{}.txt"
 
         self.losses_dict = self.parameters["losses_dict"]
         self.models_dict = self.parameters["models_dict"]
@@ -18,12 +18,20 @@ class ResultsParser():
         self.losses_list = self.parameters["losses_list"]
         self.decimals = self.parameters["decimals"]
         self.metrics_to_percentage = self.parameters["metrics_to_percentage"]
+        self.table_name = self.parameters["table_name"]
 
     def json_to_latex(self):
         
         df = self.__parse()
+        new_columns = [ self. models_dict[c] for c in df.columns]
+        df.columns = new_columns
         latex_table = df.to_latex(escape=False)
-        print(latex_table)
+
+        if os.path.exists(self.outputs_path.format(self.table_name)):
+            os.remove(self.outputs_path.format(self.table_name))
+        with open(self.outputs_path.format(self.table_name), "w") as output_file:
+            output_file.write(latex_table)
+        
             
     def __parse(self):  
         dataframes = []          
@@ -45,7 +53,7 @@ class ResultsParser():
             
             mean_df = np.array(df.mean(axis=0).values)
             mean_df = np.array([helpers.truncate(v,self.decimals) for v in mean_df]).reshape(1,-1)
-            mean_df = pd.DataFrame(mean_df,columns = self.models_list, index = ["moyenne"])
+            mean_df = pd.DataFrame(mean_df,columns = self.models_list, index = ["Moyenne"])
             df = df.append(mean_df)
             df = self.__bold_minimum_values(df)
             dataframes.append(df)
@@ -63,7 +71,7 @@ class ResultsParser():
 
         merged = pd.DataFrame(
                 np.zeros( ( len(self.scenes_list) + 1, len(self.models_list)  ) ),
-                index=self.scenes_list + ["moyenne"],columns = self.models_list
+                index=self.scenes_list + ["Moyenne"],columns = self.models_list
                 )
 
         for row in merged.index:
