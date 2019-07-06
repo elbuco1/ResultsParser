@@ -19,30 +19,68 @@ class ResultsParser():
         self.decimals = self.parameters["decimals"]
         self.metrics_to_percentage = self.parameters["metrics_to_percentage"]
 
-    def temp(self):
+    def json_to_latex(self):
         
-            df = self.__parse()
-            print(df)
-    def __parse(self):            
+        df = self.__parse()
+        latex_table = df.to_latex(escape=False)
+        print(latex_table)
+            
+    def __parse(self):  
+        dataframes = []          
         for loss in self.losses_list:
 
             df = pd.DataFrame(
                 np.zeros( ( len(self.scenes_list), len(self.models_list) ) ),
                 index=self.scenes_list,columns = self.models_list
                 )
+
             for scene in self.scenes_list:
                 for model in self.models_list:
                     model_metrics = json.load(open(self.models_path.format(model)))
 
-
-                    # if "unjoint" in loss or "disjoint" in loss:
                     if loss in self.metrics_to_percentage:
-                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),4)*100
+                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),self.decimals)*100
                     else:
-                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),4)
-            print(df)
-        return None
+                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),self.decimals)
+            
+            mean_df = np.array(df.mean(axis=0).values)
+            mean_df = np.array([helpers.truncate(v,self.decimals) for v in mean_df]).reshape(1,-1)
+            mean_df = pd.DataFrame(mean_df,columns = self.models_list, index = ["moyenne"])
+            df = df.append(mean_df)
+            df = self.__bold_minimum_values(df)
+            dataframes.append(df)
+            
+        df_result = self.__merge_dataframes(dataframes)  
+        return df_result
 
-    
+    def __bold_minimum_values(self,df):
+        maxs = df.idxmin(axis = 1)        
+        for max_,id_ in zip(maxs, df.index):
+            df.loc[id_,max_] = "\\textbf{"+ str(df.loc[id_,max_]) + "}"
+        return df
+       
+    def __merge_dataframes(self,dataframes):
+
+        merged = pd.DataFrame(
+                np.zeros( ( len(self.scenes_list) + 1, len(self.models_list)  ) ),
+                index=self.scenes_list + ["moyenne"],columns = self.models_list
+                )
+
+        for row in merged.index:
+            for column in list(merged.columns):
+                losses_values = []
+                for df in dataframes:
+                    losses_values.append( df.loc[row,column])
+                losses_values = self.merge_values(losses_values)
+                merged.loc[row,column] = losses_values
+        return merged
 
 
+    def merge_values(self,values):
+        out_str = ""
+        for i,value in enumerate(values):
+            value = str(value)
+            out_str += value
+            if i < len(values) - 1:
+                out_str += "/"
+        return out_str

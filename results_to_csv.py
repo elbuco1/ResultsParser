@@ -5,7 +5,7 @@ def main():
     args = sys.argv 
     parameters_path = args[1]
     results_parser = ResultsParser(parameters_path)
-    results_parser.temp()
+    results_parser.json_to_latex()
      
 
 if __name__ == "__main__":

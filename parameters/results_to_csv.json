@@ -2,7 +2,7 @@
     
     "models_path":"./data/models/",
     "outputs_path":"./data/outputs/",
-
+    "table_name":"Experiment 1.ADE/FDE",
     "losses_dict":{
         "ade":"ADE(conjointe)",
         "ade_unjoint":"ADE",
