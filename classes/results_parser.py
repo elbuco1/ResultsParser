@@ -27,12 +27,16 @@ class ResultsParser():
         new_columns = [ "\\textit{"+ c + "}" for c in new_columns]
 
         df.columns = new_columns
-        latex_table = df.to_latex(escape=False)
+        latex_table = df.to_latex(escape=False, column_format = self.__get_header() )
 
         if os.path.exists(self.outputs_path.format(self.table_name)):
             os.remove(self.outputs_path.format(self.table_name))
         with open(self.outputs_path.format(self.table_name), "w") as output_file:
             output_file.write(latex_table)
+            print(latex_table)
+        
+        # for row in latex_table:
+        #     print(row)
         
             
     def __parse(self):  
@@ -84,6 +88,11 @@ class ResultsParser():
                 losses_values = self.merge_values(losses_values)
                 merged.loc[row,column] = losses_values
         return merged
+    def __get_header(self):
+        header = "|l||"
+        for i in range(len(self.models_list)):
+            header += "c|"
+        return header
 
 
     def merge_values(self,values):
