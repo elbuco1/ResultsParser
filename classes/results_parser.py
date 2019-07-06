@@ -24,6 +24,8 @@ class ResultsParser():
         
         df = self.__parse()
         new_columns = [ self. models_dict[c] for c in df.columns]
+        new_columns = [ "\\textit{"+ c + "}" for c in new_columns]
+
         df.columns = new_columns
         latex_table = df.to_latex(escape=False)
 
