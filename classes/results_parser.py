@@ -53,7 +53,7 @@ class ResultsParser():
                     model_metrics = json.load(open(self.models_path.format(model)))
 
                     if loss in self.metrics_to_percentage:
-                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),self.decimals)*100
+                        df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss])*100,self.decimals)
                     else:
                         df.loc[scene,model] = helpers.truncate(float(model_metrics[scene][loss]),self.decimals)
             

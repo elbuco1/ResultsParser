@@ -1,0 +1,89 @@
+{
+    "models_path": "./data/models/",
+    "outputs_path": "./data/outputs/",
+    "table_name": "Experiment_8_vgtestg",
+    "models_list": [
+        "cnn_mlp",
+        "s2s_social_unjoint"
+        
+    ],
+    "losses_list": [
+        "social_wsstn_disjoint",
+        "social_joint_0.1",
+        "speed"
+    ],
+    "losses_dict": {
+        "social_wsstn_disjoint": "Sociale wasserstein",
+        "social_wsstn_joint": "Sociale wasserstein (conjointe)",
+        "social_joint_0.1": "Sociale (0.1m) (conjointe)",
+        "social_disjoint_0.1": "Sociale(0.1m)" ,
+        "social_groundtruth_0.1": "Sociale (0.1m) (groundtruth)" ,
+        "social_joint_0.5": "Sociale (0.5m) (conjointe)",
+        "social_disjoint_0.5": "Sociale(0.5m)" ,
+        "social_groundtruth_0.5": "Sociale (0.5m) (groundtruth)",
+        "social_joint_1.0": "Sociale (1.0m) (conjointe)",
+        "social_disjoint_1.0": "Sociale(1.0m)",
+        "social_groundtruth_1.0": "Sociale (1.0m) (groundtruth)",
+        "spatial_groundtruth": "Spatiale (groundtruth)",
+        "spatial_pred": "Spatiale",
+        "ade_joint": "ADE(conjointe)",
+        "ade_disjoint": "ADE",
+        "fde_joint": "FDE(conjointe)",
+        "fde_disjoint": "FDE",
+        "speed": "Cinétique (vitesses)",
+        "acceleration": "Cinétique (accélérations)"
+    },
+    "metrics_to_percentage": [
+        "social_joint_0.1",
+        "social_disjoint_0.1",
+        "social_joint_0.5",
+        "social_disjoint_0.5",
+        "social_joint_1.0",
+        "social_disjoint_1.0",
+        "spatial_pred"
+    ],
+    "dynamic_losses":[
+        "speed",
+        "acceleration"
+    ],
+
+    "models_dict": {
+        "cnn_mlp": "cnn-mlp-i-o",
+        "rnn_mlp": "rnn-mlp-i-o",
+        "s2s_social_unjoint": "s2s-social-o-0",
+        "s2s_spatial": "s2s-spatial-o",
+        "social_soft_unjoint": "c-social-soft-o-0",
+        "social_mha_1_unjoint": "c-social-mha-1-o-0",
+        "social_mha_4_unjoint": "c-social-mha-4-o-0",
+        "spatial_soft": "c-spatial-soft-o",
+        "spatial_mha_1": "c-spatial-mha-1-o",
+        "spatial_mha_4": "c-spatial-mha-4-o",
+        "s2s_social": "s2s-social-o-1",
+        "social_soft": "c-social-soft-o-1",
+        "social_mha_1": "c-social-mha-1-o-1",
+        "social_mha_4": "c-social-mha-4-o-1",
+        "vggtest":"vggtest"
+    },
+    "file_name": "out.csv",
+    "scenes_list": [
+        "coupa0",
+        "coupa1",
+        "gates2",
+        "hyang0",
+        "hyang1",
+        "hyang3",
+        "hyang8",
+        "little0",
+        "little1",
+        "little2",
+        "little3",
+        "nexus5",
+        "nexus6",
+        "quad0",
+        "quad1",
+        "quad2",
+        "quad3"
+    ],
+    
+    "decimals": 4
+}
